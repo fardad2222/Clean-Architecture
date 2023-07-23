@@ -3,17 +3,15 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from app.infrastructure.persistence import Base
-from app.infrastructure.persistence.cities import CityDBModelConfig
-from app.infrastructure.persistence.provinces import ProvinceDBModelConfig
-
 from alembic import context
-from BaseConfig import BaseConfig as app_config
+from app.infrastructure.persistence import Base
+
+from app.infrastructure.persistence.cities.CityDBModelConfig import CityDBModelConfig
+from app.infrastructure.persistence.cities.MySQLCityRepository import MySQLCityRepository
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-config.set_main_option('sqlalchemy.url', app_config.DB_URI)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
@@ -32,7 +30,7 @@ target_metadata = Base.metadata
 # ... etc.
 
 
-def run_migrations_offline():
+def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
 
     This configures the context with just a URL
@@ -56,7 +54,7 @@ def run_migrations_offline():
         context.run_migrations()
 
 
-def run_migrations_online():
+def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
 
     In this scenario we need to create an Engine

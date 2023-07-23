@@ -5,7 +5,7 @@ from sqlalchemy import create_engine
 
 from BaseConfig import BaseConfig as app_config
 
-engine = create_engine(app_config.DB_URI)
+engine = create_engine(app_config.DB_URI, echo=True)
 initialize_sql(engine)
 
 # def main(global_config, **settings):

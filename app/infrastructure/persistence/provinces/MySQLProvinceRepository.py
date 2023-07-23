@@ -33,11 +33,15 @@ class MySQLProvinceRepository(ProvinceRepository):
 
         try:
             self.__session.add(province_db_model)
-            self.__session.flush()
+            self.__session.commit()
             self.__session.refresh(province_db_model)
+            
+            # self.__session.add(province_db_model)
+            # self.__session.flush()
+            # self.__session.refresh(province_db_model)
             # self.__session.commit()
             # self.__session.refresh(province_db_model)
-            return province_db_model.province_id
+            # return province_db_model.province_id
         except IntegrityError as exception:
             if "violates unique constraint" in str(exception.orig):
                 raise UniqueViolationError(

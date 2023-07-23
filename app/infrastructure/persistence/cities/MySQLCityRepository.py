@@ -34,6 +34,11 @@ class MySQLCityRepository(CityRepository):
         )
 
         try:
+            # self.__session.add(city_db_model)
+            # self.__session.flush()
+            # self.__session.refresh(city_db_model)
+            # return city_db_model.city_id
+
             self.__session.add(city_db_model)
             self.__session.commit()
             self.__session.refresh(city_db_model)

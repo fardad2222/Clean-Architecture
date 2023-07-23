@@ -1,6 +1,6 @@
 # app/extensions
-from app.presentation.rest_api.cities.CityAPI import city_api
-from app.presentation.rest_api.provinces.ProvinceAPI import province_api
+from src.presentation.rest_api.cities.CityAPI import city_api
+from src.presentation.rest_api.provinces.ProvinceAPI import province_api
 
 
 
