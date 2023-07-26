@@ -7,7 +7,16 @@ from src.infrastructure.persistence import DBSession
 from src.infrastructure.persistence.cities.MySQLCityRepository import \
     MySQLCityRepository
 from src.infrastructure.persistence.UnitOfWork import UnitOfWork
+from src.presentation.rest_api.config.CitySchema import CitySchema
 
+#cityschema = CitySchema()
+
+import json
+from json import JSONEncoder
+
+class CityJSONEncoder(JSONEncoder):
+    def default(self, obj):
+        return obj.__dict__
 
 # Define parser and request args
 parser = reqparse.RequestParser()
@@ -25,16 +34,20 @@ class AddCityAPI(Resource):
         city_service = CityAPPService(city_repository, uow)
         city_id = city_service.add(city, province_id)
         
-        response = make_response(
-            jsonify(
-                {"id": str(city_id)}
-            ),
-            200,
-        )
+        # response = make_response(
+        #     jsonify(
+        #         {"id": str(city_id)}
+        #     ),
+        #     200,
+        # )
+        serialized_city = json.dumps(city_id, cls=CityJSONEncoder)
+        # serialized_city = cityschema.load(city_id, session=DBSession, many = True) 
+        response = make_response(serialized_city, 200)
+
         response.headers["Content-Type"] = "application/json"
+
         return response
-
-
+    
 class CityAPI(Resource):
     def get(self, city_id):
 
@@ -52,12 +65,23 @@ class CityAPI(Resource):
             response.headers["Content-Type"] = "application/json"
             return response
         else:
-            response = make_response(
-                jsonify(
-                    {"name": city.name}
-                ),
-                200,
-            )
+            # response = make_response(
+            #     jsonify(
+            #         {"name": city.name}
+            #     ),
+            #     200,
+            # )
+            city_data = {
+                "city_id": city.city_id,
+                "name": city.name,
+                "province_id" : city.province_id
+                # Add other attributes if needed
+            }
+
+            deserialized_city = json.dumps(city_data)
+
+            #serialized_province = cityschema.dump(city)
+            response = make_response(deserialized_city, 200)
             response.headers["Content-Type"] = "application/json"
             return response
 

@@ -10,9 +10,9 @@ For Create Migrations in project
     -- cities
         -- CityDBModelConfig.py
 
-3-
-export PYTHONPATH=$PYTHONPATH:"/home/taavv1/anaconda3/envs/py3113/lib/python3.11/site-packages"
-export PYTHONPATH=$PYTHONPATH:"/home/taavv1/Templates/newthree/Clean-Architecture-RestAPI-Flask"
+3- Export
+    export PYTHONPATH=$PYTHONPATH:"/home/taavv1/anaconda3/envs/py3113/lib/python3.11/site-packages"
+    export PYTHONPATH=$PYTHONPATH:"/home/taavv1/Templates/newthree/Clean-Architecture-RestAPI-Flask"
 
 
 4- Generate migration of database using alembic with models

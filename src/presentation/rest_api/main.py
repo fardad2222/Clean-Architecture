@@ -1,4 +1,3 @@
-
 from src.presentation.rest_api.create_app import create_app
 
 main_app = create_app()
